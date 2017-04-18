@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-Description: Cualquier cosa
+Bundle-SymbolicName: holamundofuse
+Bundle-Version: 1.0.0.SNAPSHOT
+Bundle-Name: Mi primer bundle
+Built-By: bacario08
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1492536931591
+Import-Package: org.apache.camel;version="[2.17,3)",org.slf4j;version=
+ "[1.7,2)"
+Created-By: Apache Maven Bundle Plugin
+Tool: Bnd-1.15.0
+Build-Jdk: 1.8.0_112
+

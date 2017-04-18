@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:camel="http://camel.apache.org/schema/spring"
+xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	 http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd ">
+
+	  <cxf:cxfEndpoint id="customer" address="http://services.aonaware.com/DictService/DictService.asmx" 
+		wsdlURL="http://services.aonaware.com/DictService/DictService.asmx?WSDL"
+		serviceName="s:DictService"
+		endpointName="s:DictServiceSoap"
+   		xmlns:s="http://services.aonaware.com/webservices/">
+		<cxf:properties>
+        		<entry key="dataFormat" value="MESSAGE"/>
+			 <entry key="setDefaultBus" value="true"/>
+    		</cxf:properties>
+	</cxf:cxfEndpoint>	
+
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring" >
+
+        <route >
+            <from uri="file:///home/bacario08/Documentos/input" />
+		
+            	<to uri="cxf:bean:customer" />
+
+		<split streaming="true">
+			<tokenize token="WordDefinition" xml="true"/>
+				
+				<to uri="file:///home/bacario08/Documentos/output?fileName=prueba.xml" />
+		</split >
+        </route>
+    </camelContext>
+</beans>
